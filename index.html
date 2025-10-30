@@ -28,7 +28,7 @@ https://www.w3schools.com/w3css/default.asp
 -->
 	
    <head> 
-      <title>HTML5-Canvas</title>  
+      <title>Example of a Freestyle Canvas</title>  
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <meta name="mobile-web-app-capable" content="yes">
       <link rel="stylesheet" href="w3.css">
@@ -37,38 +37,31 @@ https://www.w3schools.com/w3css/default.asp
 
 
 <script>
-var docMod = document.lastModified; // loads last modified time stamp into docMod variable
-//alert("This file last modified " + docMod); // generates alert box with last modified time stamp. un-comment out this entire line if you want to use.
-console.log("This file last modified " + docMod); // generates message in javaScript console (found in developers tools) with time stamp.
-
-function drawRect() { //This draws a rectangle on the canvas
-	var a_canvas = document.getElementById('a'); //this variable calls the canvas using an id
-	var a_context = a_canvas.getContext('2d'); //sets canvas to 2 dimensional
-	a_context.fillStyle = "#808080"; // rectangle is grey
-	a_context.fillRect(5, 5, 175, 100);//sets coordinates and placement of rectangle
-
-};
-
-function my_name() {//this function displays my name, "Philip"
-	var a_canvas = document.getElementById('a'); //this variable calls the canvas using an id
-	var a_context = a_canvas.getContext('2d'); //sets canvas to 2 dimensional
-	a_context.font = "30px Times New Roman"; // adds font for my name and size
-	a_context.fillStyle = "#000000"; // sets color of text to black
-	a_context.fillText ("Philip", 10, 150); //adds name text and coordinates for my name
-}; 
-function my_image() {//this function displays my chosen image
-	var a_canvas =document.getElementById('a'); //this variable calls the canvas using an id
-	var a_context = a_canvas.getContext('2d'); //sets canvas to 2 dimensional
-	var DIYLogo = document.getElementById('DIYimg');//pulls longhorn image
-	a_context.drawImage(DIYLogo, 5, 5, 100, 100);//draws image with size created by 4 numbers
-
-};
-function clear_canvas() {//this function clears the canvas
-	var a_canvas =document.getElementById('a');//this variable calls the canvas using an id
- 	a_canvas.width = a_canvas.width; // causes the canvas to clear
-};
 
 
+// Draw a dinosaur into the canvas with id 'dino' using an embedded SVG (no external image needed)
+function drawDinosaur() {
+		var c = document.getElementById('dino');
+		if (!c) return;
+		var ctx = c.getContext('2d');
+		var svg = `
+		<svg xmlns='http://www.w3.org/2000/svg' width='400' height='250' viewBox='0 0 400 250'>
+			<rect width='100%' height='100%' fill='transparent'/>
+			<ellipse cx='200' cy='150' rx='140' ry='70' fill='#6BBF59' stroke='#3D7A2B' stroke-width='4'/>
+			<ellipse cx='120' cy='130' rx='60' ry='40' fill='#6BBF59' stroke='#3D7A2B' stroke-width='4'/>
+			<path d='M320 150 q60 -20 80 -60 q-10 40 -40 70 q-30 20 -40 10z' fill='#6BBF59' stroke='#3D7A2B' stroke-width='4'/>
+			<polygon points='110,90 125,70 140,90' fill='#3D7A2B'/>
+			<polygon points='150,80 165,60 180,80' fill='#3D7A2B'/>
+			<polygon points='190,75 205,55 220,75' fill='#3D7A2B'/>
+			<circle cx='150' cy='110' r='8' fill='#fff'/>
+			<circle cx='150' cy='110' r='4' fill='#000'/>
+		</svg>`;
+		var img = new Image();
+		img.onload = function(){ ctx.clearRect(0,0,c.width,c.height); ctx.drawImage(img,0,0,c.width,c.height); };
+		img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
+}
+
+window.addEventListener('load', drawDinosaur);
 </script>
 
 
@@ -79,20 +72,13 @@ function clear_canvas() {//this function clears the canvas
 
 <body>
 <div id="header" class="w3-container w3-flat-carrot">
-	<h1>HTML5-Canvas</h1>
+	<h1>Example of a Freestyle Canvas</h1>
 </div>
 	
 <div id="content" class="w3-container">
-	<p>Content goes here.</p>
-	<canvas id="a" width="300" height="190" style="border:2px solid #000000;"></canvas>
-   <p> Click the button below to creat a work of art!</p>
-   <a onclick="drawRect();" class="w3-btn w3-grey w3-round"> Draw Rectangle!</a> <!--Place your comment describing your new code here-->
-   <a onclick="my_name();" class="w3-btn w3-grey w3-round"> Write name!</a> <!--Place your comment here -->
-   <img id='DIYimg' src='https://media.licdn.com/dms/image/C560BAQHJ2leUsrSTwQ/company-logo_200_200/0/1674753342772?e=2147483647&v=beta&t=746UMn1wjc5m-mUrLt7bqobiP-VxgWEr9bB-Hu6T9x4' alt='Image of DIY' class='hidden' width='0' height='0'> <!-- Insert your comment describing your code here-->
-   <a onclick="my_image();" class="w3-btn w3-grey w3-round"> Draw image! </a> <!--Add your comment describing your code here-->
-   <a onclick="clear_canvas();" class="w3-btn w3-grey w3-round"> Clear Canvas!</a> <!--Add your comment here that describes the code-->
-
-
+	<p>Below is an example of what you can add onto a canvas! The code has a function which draws out various shapes to create a polygon dinosaur. </p>
+		<!-- Dinosaur canvas inserted below the paragraph -->
+		<canvas id="dino" width="400" height="250" style="border:2px solid #000000; display:block; margin-bottom:10px;"></canvas>
 
 </div>
 	
